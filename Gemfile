@@ -25,6 +25,7 @@ gem 'carrierwave'
 gem 'haml'
 gem 'devise'
 gem 'activeadmin'
+gem 'mini_magick'
 
 
 # To use ActiveModel has_secure_password

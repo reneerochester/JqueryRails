@@ -1,49 +1,42 @@
-	// the procedural method
-$(document).ready(
-	function(){
-		var sliderUL = $('div.slider').css('overflow', 'hidden').children('ul');
-		console.log($('div.slider'));//debugger
-		var imgs = sliderUL.find('img'),
-		imgWidth = imgs[0].width, // 600
-		imgsLen = imgs.length, // 4
-		current = 1,
-		totalImgsWidth = imgsLen * imgWidth; // 2400
+$(document).ready(function(){
+  setTimeout(function() {
+    var $slider = $('.slider');
+    var $next = $slider.find('button.next')
+    var $previous = $slider.find('button.previous');
+    var $images = $slider.find('img')
+    var $ul = $slider.find('ul.photos')
+    var $innerslider = $slider.find('.inner-slider');
 
-		$('#slider-nav').show().find('button').on('click', function() {
-			var direction = $(this).data('dir'),
-			loc = imgWidth; // 600
+    // count the img widths
+    var total_width = 0
+    // loop over each img and add it's width to the total_width variable +=
+    $images.each(function(){
+      var image = $(this);
+      console.log(image.width());
+      total_width += image.width();
+    });
+    // set that total width to be the parent containers width
+    $ul.css('width', total_width);
+    
+    var counter = 0;
 
-			// update current value
-			( direction === 'next' ) ? ++current : --current;
+    $next.click(function(){
+      counter += 1;
 
-			// if first image
-			if ( current === 0 ) {
-				current = imgsLen;
-				loc = totalImgsWidth - imgWidth; // 2400 - 600 = 1800
-				direction = 'next';
-			} else if ( current - 1 === imgsLen ) { // Are we at end? Should we reset?
-				current = 1;
-				loc = 0;
-			}
+      //if (counter > total number of images){
+        // make it animate back to 0 so that it slides back to the first image
+      //  instead of sliding to whitespace
+        // and looking broken
+      //}
+      //else{
+        // slide to the next one ( already done )
+        $ul.animate({
+          'margin-left':'-=400px'
+        });
+        
+      //}
+    });
+    
+  }, 100);
 
-			transition(sliderUL, loc, direction);
-		});
-
-		function transition( container, loc, direction ) {
-			var unit; // -= +=
-
-			if ( direction && loc !== 0 ) {
-				unit = ( direction === 'next' ) ? '-=' : '+=';
-			}
-
-			container.animate({
-				'margin-left': unit ? (unit + loc) : loc
-			});
-		}
-	}()
-
-);
-// (function($) {
-	
-
-// })(jQuery);
+});

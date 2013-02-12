@@ -1,19 +1,22 @@
 %h1.page-title
-	Portfolio
+  Portfolio
 .slider
-	%ul
-		- @photos.each do |photo|
-			%li
-				%h1.photo-title= photo.title
-				%a.photo-link{:href => photo.link}
-					%img{:src => photo.file}
-				%p.photo-description= photo.description
-#slider-nav
-	%button{"data-dir" => "prev"} 
-		Previous
-	%button{"data-dir" => "next"} 
-		Next
-		
+  .inner-slider
+    %ul.photos
+      - @photos.each do |photo|
+        %li
+          / %h1.photo-title= photo.title
+          %a.photo-link{:href => photo.link}
+            %img{:src => photo.file.slide.url}
+          / %p.photo-description_title= photo.description_title
+          / %p.photo-description= photo.description
+
+  .actions
+    %button.previous
+      Previous
+    %button.next
+      Next
+
 
 
 
